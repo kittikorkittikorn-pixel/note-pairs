@@ -1,0 +1,2341 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>จับคู่โน้ต</title>
+    <meta
+      name="description"
+      content="เกมเปิดการ์ดจับคู่ โน้ตบนบรรทัดห้าเส้นกับชื่อโน้ต ฝึกอ่านโน้ตและความจำ"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#dfe9ef" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1a21" media="(prefers-color-scheme: dark)" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E
+%3Ccircle cx='12' cy='23' r='6' fill='%23c4421f'/%3E
+%3Cpath d='M17 23V4h4v19' fill='%23c4421f'/%3E%3C/svg%3E"
+    />
+    <meta property="og:title" content="จับคู่โน้ต" />
+    <meta
+      property="og:description"
+      content="เกมเปิดการ์ดจับคู่ โน้ตบนบรรทัดห้าเส้นกับชื่อโน้ต ฝึกอ่านโน้ตและความจำ"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="th_TH" />
+    <style>
+      /* สีหลัก */
+      :root {
+        --value-0: 0;
+        --value-16px: 16px;
+        --value-1point-6: 1.6;
+        --value-592px: 592px;
+        --value-24px: 24px;
+        --value-28px: 28px;
+        --value-1point-4: 1.4;
+        --value-18px: 18px;
+        --value-8px: 8px;
+        --value-1px: 1px;
+        --value-12px: 12px;
+        --value-44px: 44px;
+        --value-3px: 3px;
+        --value-2px: 2px;
+        --value-point-5: 0.5;
+        --value-52px: 52px;
+        --value-700: 700;
+        --value-point-98: 0.98;
+        --value-22px: 22px;
+        --value-1point-3: 1.3;
+        --value-1fr: 1fr;
+        --value-3: 3;
+        --value-4: 4;
+        --value-100pct: 100%;
+        --value-80pct: 80%;
+        --value-65pct: 65%;
+        --value-7vw: 7vw;
+        --value-40px: 40px;
+        --value-14px: 14px;
+        --value-50pct: 50%;
+        --bg: #dfe9ef;
+        --surface: #fff;
+        --surface-2: #f3f8fa;
+        --line: #c6d6e0;
+        --line-strong: #b5c8d4;
+        --text: #17252f;
+        --text-soft: #33454f;
+        --muted: #5f7584;
+        --action: #c4421f;
+        --action-ink: #fff;
+        --action-soft: #fdece7;
+        --blue: #3f6f8d;
+        --blue-soft: #e3eef5;
+        --brass: #9a6a1f;
+        --good: #2e7d59;
+        --warn: #9a6a1f;
+        --bad: #b3261e;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --bg: #0f1a21;
+          --surface: #172630;
+          --surface-2: #1c2f3b;
+          --line: #2c4150;
+          --line-strong: #3a5263;
+          --text: #e6eef3;
+          --text-soft: #c3d3dc;
+          --muted: #8ea3b1;
+          --action: #f07a5a;
+          --action-ink: #1b0e09;
+          --action-soft: #3a221b;
+          --blue: #8cb8d3;
+          --blue-soft: #1d3442;
+          --brass: #d9a94f;
+          --good: #7fd1a6;
+          --warn: #e3b04b;
+          --bad: #ff8a80;
+          color-scheme: dark;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: var(--value-0);
+        background: var(--bg);
+        color: var(--text);
+        font:
+          var(--value-16px)/var(--value-1point-6) 'Sarabun',
+          'Leelawadee UI',
+          'Noto Sans Thai',
+          Thonburi,
+          Tahoma,
+          system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: var(--value-592px);
+        margin: auto;
+        padding: var(--value-24px) var(--value-16px);
+      }
+      h1,
+      h2,
+      p {
+        margin: var(--value-0);
+      }
+      h1 {
+        font-size: var(--value-28px);
+        line-height: var(--value-1point-4);
+      }
+      h2 {
+        font-size: var(--value-18px);
+        margin: var(--value-16px) var(--value-0) var(--value-8px);
+      }
+      header {
+        margin-bottom: var(--value-16px);
+      }
+      header p {
+        color: var(--text-soft);
+      }
+      button {
+        font: inherit;
+        color: var(--text);
+        background: var(--surface-2);
+        border: var(--value-1px) solid var(--line);
+        border-radius: var(--value-12px);
+        min-height: var(--value-44px);
+        padding: var(--value-8px) var(--value-12px);
+        cursor: pointer;
+        touch-action: manipulation;
+      }
+      button:focus-visible,
+      summary:focus-visible,
+      input:focus-visible {
+        outline: var(--value-3px) solid var(--blue);
+        outline-offset: var(--value-2px);
+      }
+      button:disabled {
+        opacity: var(--value-point-5);
+      }
+      button.primary {
+        background: var(--action);
+        color: var(--action-ink);
+        border-color: var(--action);
+        min-height: var(--value-52px);
+        font-weight: var(--value-700);
+      }
+      button:active {
+        transform: scale(var(--value-point-98));
+      }
+      .hud {
+        display: flex;
+        gap: var(--value-24px);
+        align-items: center;
+        margin-bottom: var(--value-12px);
+      }
+      .hud strong {
+        display: block;
+        font-size: var(--value-22px);
+        line-height: var(--value-1point-3);
+        font-variant-numeric: tabular-nums;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(var(--cols), minmax(var(--value-0), var(--value-1fr)));
+        gap: var(--value-8px);
+      }
+      .card {
+        position: relative;
+        aspect-ratio: var(--value-3) / var(--value-4);
+        padding: var(--value-0);
+        min-width: var(--value-0);
+        overflow: hidden;
+        background: var(--surface);
+        user-select: none;
+        transition: transform var(--flip-ms);
+      }
+      .card.is-animating {
+        animation: flip-card var(--flip-ms) ease-out;
+      }
+      @keyframes flip-card {
+        from {
+          transform: rotateY(90deg);
+        }
+        to {
+          transform: rotateY(var(--value-0));
+        }
+      }
+      .card-back {
+        --back-bg: var(--blue);
+        --back-line: var(--surface);
+        --back-accent: var(--brass);
+        background: var(--back-bg);
+        width: var(--value-100pct);
+        height: var(--value-100pct);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .card-back svg {
+        width: var(--value-80pct);
+        height: var(--value-65pct);
+      }
+      .card svg.staff {
+        width: var(--value-100pct);
+        height: var(--value-100pct);
+        color: var(--text);
+      }
+      .card .face-text {
+        display: block;
+        font-size: clamp(var(--value-22px), var(--value-7vw), var(--value-40px));
+        font-weight: var(--value-700);
+        line-height: var(--value-1point-3);
+      }
+      .card .register {
+        display: block;
+        font-size: var(--value-14px);
+      }
+      .card.is-matched {
+        border: var(--value-2px) solid var(--good);
+      }
+      .card.is-miss {
+        border: var(--value-2px) solid var(--bad);
+      }
+      .card .mark {
+        position: absolute;
+        top: var(--value-0);
+        right: var(--value-3px);
+        background: var(--surface);
+        color: var(--text);
+        font-size: var(--value-12px);
+        font-weight: var(--value-700);
+      }
+      .actions {
+        display: flex;
+        gap: var(--value-8px);
+        flex-wrap: wrap;
+        margin: var(--value-16px) var(--value-0);
+      }
+      .segments {
+        display: flex;
+        gap: var(--value-8px);
+        flex-wrap: wrap;
+      }
+      .segments button[aria-pressed='true'] {
+        background: var(--surface);
+        border-color: var(--blue);
+        outline: var(--value-1px) solid var(--blue);
+      }
+      .options,
+      .settings,
+      #finish,
+      #checkResult {
+        background: var(--surface);
+        border: var(--value-1px) solid var(--line);
+        border-radius: var(--value-18px);
+        padding: var(--value-16px);
+        margin-top: var(--value-16px);
+      }
+      .settings summary {
+        font-weight: var(--value-700);
+        cursor: pointer;
+        min-height: var(--value-44px);
+      }
+      .settings label {
+        display: block;
+      }
+      .settings input[type="range"] {
+        width: var(--value-100pct);
+      }
+      #checkResult .is-pass {
+        color: var(--good);
+      }
+      #checkResult .is-fail {
+        color: var(--bad);
+      }
+      #notice:empty,
+      [data-slot]:empty {
+        display: none;
+      }
+      #notice {
+        margin: var(--value-8px) var(--value-0);
+        color: var(--text-soft);
+      }
+      footer {
+        margin-top: var(--value-24px);
+        color: var(--text-soft);
+        font-size: var(--value-14px);
+      }
+      .sr {
+        position: absolute;
+        width: var(--value-1px);
+        height: var(--value-1px);
+        overflow: hidden;
+        clip-path: inset(var(--value-50pct));
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .card {
+          transition: none;
+        }
+        .card.is-animating {
+          animation: none;
+        }
+      }
+      /* สีของเกม */
+      :root {
+        --deck-surface: var(--surface); /* พื้นสำรับ */
+        --medal-ink: var(--brass); /* เส้นเหรียญ */
+        --medal-fill: var(--action-soft); /* พื้นเหรียญที่ได้รับ */
+        --fact-surface: var(--blue-soft); /* พื้นแถบอธิบาย */
+        /* ขนาดและระยะ */
+        --sample-size: 46px; /* ขนาดตัวอย่างบนปุ่ม */
+        --medal-size: 32px; /* ขนาดเหรียญ */
+        --note-text: clamp(0.75rem, 3.9vw, 1.25rem); /* ขนาดข้อความยาวบนการ์ด */
+        --space-v2: 12px; /* ระยะห่างพื้นฐาน */
+        --deck-line: 1px; /* เส้นขอบสำรับ */
+        --pop-distance: 12px; /* ระยะลอยของคะแนน */
+        --pop-duration: 200ms; /* เวลาแสดงคะแนน */
+        --result-step: 80ms; /* ระยะหน่วงระหว่างผลแต่ละบรรทัด */
+      }
+      .deck-picker {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-v2);
+      }
+      .deck-picker button {
+        background: var(--deck-surface);
+        text-align: start;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 0;
+      }
+      .deck-picker button[aria-pressed='true'] {
+        outline: var(--deck-line) solid var(--action);
+        border-color: var(--action);
+      }
+      .deck-picker small, #modeAbout, #homeBest {
+        color: var(--text-soft);
+      }
+      .deck-picker svg, .steps svg {
+        width: var(--sample-size);
+        height: var(--sample-size);
+      }
+      .medals {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-v2);
+      }
+      .medals svg, .badge-list svg {
+        color: var(--medal-ink);
+        width: var(--medal-size);
+        height: var(--medal-size);
+        vertical-align: middle;
+        margin-inline-end: var(--space-v2);
+      }
+      .medal-earned circle {
+        fill: var(--medal-fill);
+      }
+      .badge-list, .steps {
+        padding-inline-start: var(--space-v2);
+      }
+      .badge-list li, .steps li {
+        margin-block-end: var(--space-v2);
+      }
+      .steps svg {
+        vertical-align: middle;
+        margin-inline-end: var(--space-v2);
+      }
+      h1:focus {
+        outline: none;
+      }
+      #raceClock progress {
+        width: 100%;
+        accent-color: var(--action);
+      }
+      .fact:not(:empty), #toast:not([hidden]) {
+        background: var(--fact-surface);
+        color: var(--text);
+        margin-block: var(--space-v2);
+        padding: var(--space-v2);
+      }
+      .card .face-text.is-long {
+        font-size: var(--note-text);
+        overflow-wrap: anywhere;
+        padding-inline: var(--space-v2);
+      }
+      .card .sound-icon, .card .symbol-icon {
+        max-width: var(--sample-size);
+        display: block;
+        margin-inline: auto;
+      }
+      .score-pop {
+        animation: note-score-pop var(--pop-duration) ease-out;
+      }
+      @keyframes note-score-pop {
+        from { transform: translateY(var(--pop-distance)); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      #finish svg {
+        width: var(--sample-size);
+        height: var(--sample-size);
+        vertical-align: middle;
+      }
+      #finish p {
+        opacity: 0;
+        transition: opacity var(--pop-duration);
+        transition-delay: calc(var(--result-step) * var(--row, 0));
+      }
+      #finish.is-revealed p, :root[data-reduce='true'] #finish p {
+        opacity: 1;
+      }
+      :root[data-reduce='true'] *, :root[data-reduce='true'] *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .score-pop, #finish p {
+          opacity: 1;
+          animation: none;
+          transition: none;
+        }
+      }
+      :root[data-theme="dark"] {
+          --bg: #0f1a21;
+          --surface: #172630;
+          --surface-2: #1c2f3b;
+          --line: #2c4150;
+          --line-strong: #3a5263;
+          --text: #e6eef3;
+          --text-soft: #c3d3dc;
+          --muted: #8ea3b1;
+          --action: #f07a5a;
+          --action-ink: #1b0e09;
+          --action-soft: #3a221b;
+          --blue: #8cb8d3;
+          --blue-soft: #1d3442;
+          --brass: #d9a94f;
+          --good: #7fd1a6;
+          --warn: #e3b04b;
+          --bad: #ff8a80;
+          color-scheme: dark;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section data-screen="home">
+        <header class="home-title">
+          <h1 tabindex="-1">จับคู่โน้ต</h1>
+          <p>เปิดการ์ด จำตำแหน่ง แล้วจับคู่ให้ครบ</p>
+        </header>
+        <h2>เลือกสำรับ</h2>
+        <div id="decks" class="deck-picker"></div>
+        <h2>เลือกโหมด</h2>
+        <div id="modes" class="segments"></div>
+        <p id="modeAbout"></p>
+        <p id="earNotice" role="status"></p>
+        <div id="slotHome" data-slot="home"></div>
+        <div id="levelChoice">
+          <h2>ระดับ</h2>
+          <div id="levels" class="segments"></div>
+        </div>
+        <p id="homeBest"></p>
+        <div class="actions">
+          <button id="startPlay" class="primary">เริ่มเล่น</button>
+          <button id="openHowto">วิธีเล่น</button>
+          <button id="openBadges">เหรียญของฉัน</button>
+        </div>
+        <div id="homeBadges" class="medals"></div>
+      </section>
+      <section data-screen="play" hidden>
+        <h1 tabindex="-1">จับคู่โน้ต</h1>
+        <div class="hud" aria-label="ผลการเล่น">
+          <div>คะแนน <strong id="playScore">0</strong></div>
+          <div>ครั้งที่เปิด <strong id="turns">0</strong></div>
+          <div>คู่ที่เจอ <strong id="found">0</strong></div>
+          <div><strong id="streak"></strong></div>
+          <div id="slotHud" data-slot="hud"></div>
+        </div>
+        <div id="raceClock" hidden>เวลา <strong id="clockReadout"></strong>
+          <progress id="clockBar" aria-label="เวลาที่เหลือ"></progress>
+        </div>
+        <p id="notice" role="status"></p>
+        <div id="grid" class="grid"></div>
+        <p id="fact" class="fact" aria-live="polite"></p>
+        <p id="live" class="sr" aria-live="polite"></p>
+        <div class="actions">
+          <button id="newGame">เกมใหม่</button>
+          <button id="replay" hidden>ฟังอีกครั้ง</button>
+          <button id="pauseRace" hidden>หยุดชั่วคราว</button>
+          <button id="quit">ออก</button>
+          <div id="slotActions" data-slot="actions"></div>
+        </div>
+        <div id="slotPanel" data-slot="panel"></div>
+      </section>
+      <section data-screen="result" hidden>
+        <h1 id="resultHeading" tabindex="-1"></h1>
+        <div id="finish"></div>
+        <div id="slotResult" data-slot="result"></div>
+        <div class="actions">
+          <button id="again" class="primary">เล่นอีกครั้ง</button>
+          <button id="changeMode">เปลี่ยนโหมด</button>
+        </div>
+      </section>
+      <section data-screen="howto" hidden>
+        <h1 tabindex="-1">วิธีเล่น</h1>
+        <ol id="instructions" class="steps"></ol>
+        <button id="closeHowto" class="primary">ไปหน้าแรก</button>
+      </section>
+      <section data-screen="paused" hidden>
+        <h1 tabindex="-1">หยุดชั่วคราว</h1>
+        <button id="resumeRace" class="primary">เล่นต่อ</button>
+      </section>
+      <section data-screen="badges" hidden>
+        <h1 tabindex="-1">เหรียญของฉัน</h1>
+        <ul id="badgeList" class="badge-list"></ul>
+        <button id="closeBadges">ไปหน้าแรก</button>
+      </section>
+      <p id="toast" role="status" aria-live="polite" hidden></p>
+      <details class="settings">
+        <summary>ตั้งค่า</summary>
+        <h2>ชื่อโน้ต</h2>
+        <div id="names" class="segments"></div>
+        <label for="theme">ธีม</label>
+        <select id="theme">
+          <option value="auto">อัตโนมัติ</option><option value="light">สว่าง</option>
+          <option value="dark">มืด</option>
+        </select>
+        <label><input id="reduce" type="checkbox"> ลดการเคลื่อนไหว</label>
+        <button id="clearStats">ล้างข้อมูลของเกมนี้</button>
+        <label for="volume">ระดับเสียง</label
+        ><input type="range" id="volume" min="0" max="100" value="25" />
+        <div class="actions">
+          <button id="testSound">ทดสอบเสียง</button><button id="check">ตรวจระบบ</button>
+        </div>
+        <div id="checkResult" hidden></div>
+      </details>
+      <footer>จับคู่โน้ต · สร้างด้วย AI ช่วย · วิชา 3500230</footer>
+    </main>
+    <script>
+      (function () {
+        'use strict';
+        /* ═══════════ โซน A · ข้อมูล (แก้ได้) ═══════════ */
+        /* สำรับ: id คือรหัส title คือชื่อ pairs คือคู่ที่มี key และหน้าการ์ด a, b */
+        var DECKS = [
+          {
+            id: 'treble',
+            title: 'กุญแจซอล',
+            about: 'โน้ตบนบรรทัดห้าเส้นกุญแจซอล',
+            pairs: [
+              { key: 'C4', a: { kind: 'staff', note: 'C4' }, b: { kind: 'text', text: 'C', sub: 'โด' }},
+              { key: 'D4', a: { kind: 'staff', note: 'D4' }, b: { kind: 'text', text: 'D', sub: 'เร' }},
+              { key: 'E4', a: { kind: 'staff', note: 'E4' }, b: { kind: 'text', text: 'E', sub: 'มี' }},
+              { key: 'F4', a: { kind: 'staff', note: 'F4' }, b: { kind: 'text', text: 'F', sub: 'ฟา' }},
+              { key: 'G4', a: { kind: 'staff', note: 'G4' }, b: { kind: 'text', text: 'G', sub: 'ซอล' }},
+              { key: 'A4', a: { kind: 'staff', note: 'A4' }, b: { kind: 'text', text: 'A', sub: 'ลา' }},
+              { key: 'B4', a: { kind: 'staff', note: 'B4' }, b: { kind: 'text', text: 'B', sub: 'ที' }},
+              { key: 'C5', a: { kind: 'staff', note: 'C5' }, b: { kind: 'text', text: 'C', sub: 'โด' }},
+              { key: 'D5', a: { kind: 'staff', note: 'D5' }, b: { kind: 'text', text: 'D', sub: 'เร' }},
+              { key: 'E5', a: { kind: 'staff', note: 'E5' }, b: { kind: 'text', text: 'E', sub: 'มี' }},
+              { key: 'F5', a: { kind: 'staff', note: 'F5' }, b: { kind: 'text', text: 'F', sub: 'ฟา' }},
+              { key: 'G5', a: { kind: 'staff', note: 'G5' }, b: { kind: 'text', text: 'G', sub: 'ซอล' }},
+              { key: 'A5', a: { kind: 'staff', note: 'A5' }, b: { kind: 'text', text: 'A', sub: 'ลา' }}
+            ]
+          }
+        ];
+        /* ระดับ: id คือรหัส label คือชื่อ pairs คือจำนวนคู่ cols คือจำนวนคอลัมน์ */
+        var LEVELS = [
+          { id: 'easy', label: 'ง่าย', pairs: 6, cols: 3 },
+          { id: 'medium', label: 'กลาง', pairs: 8, cols: 4 },
+          { id: 'hard', label: 'ยาก', pairs: 10, cols: 4 }
+        ];
+        /* โน้ต: name คือชื่อ step คือตำแหน่ง midi คือเลขเสียง letter คือชื่ออักษร solfege คือชื่อเรียก */
+        var NOTES = [
+          { name: 'C4', step: -2, midi: 60, letter: 'C', solfege: 'โด' },
+          { name: 'D4', step: -1, midi: 62, letter: 'D', solfege: 'เร' },
+          { name: 'E4', step: 0, midi: 64, letter: 'E', solfege: 'มี' },
+          { name: 'F4', step: 1, midi: 65, letter: 'F', solfege: 'ฟา' },
+          { name: 'G4', step: 2, midi: 67, letter: 'G', solfege: 'ซอล' },
+          { name: 'A4', step: 3, midi: 69, letter: 'A', solfege: 'ลา' },
+          { name: 'B4', step: 4, midi: 71, letter: 'B', solfege: 'ที' },
+          { name: 'C5', step: 5, midi: 72, letter: 'C', solfege: 'โด' },
+          { name: 'D5', step: 6, midi: 74, letter: 'D', solfege: 'เร' },
+          { name: 'E5', step: 7, midi: 76, letter: 'E', solfege: 'มี' },
+          { name: 'F5', step: 8, midi: 77, letter: 'F', solfege: 'ฟา' },
+          { name: 'G5', step: 9, midi: 79, letter: 'G', solfege: 'ซอล' },
+          { name: 'A5', step: 10, midi: 81, letter: 'A', solfege: 'ลา' }
+        ];
+        // ชื่อโน้ต ขั้นบนบรรทัดห้าเส้น เลข MIDI ชื่ออักษร และชื่อไทยของกุญแจฟา
+        var BASS_NOTES = [
+          { name: "E2", step: -2, midi: 40, letter: "E", solfege: "มี" },
+          { name: "F2", step: -1, midi: 41, letter: "F", solfege: "ฟา" },
+          { name: "G2", step: 0, midi: 43, letter: "G", solfege: "ซอล" },
+          { name: "A2", step: 1, midi: 45, letter: "A", solfege: "ลา" },
+          { name: "B2", step: 2, midi: 47, letter: "B", solfege: "ที" },
+          { name: "C3", step: 3, midi: 48, letter: "C", solfege: "โด" },
+          { name: "D3", step: 4, midi: 50, letter: "D", solfege: "เร" },
+          { name: "E3", step: 5, midi: 52, letter: "E", solfege: "มี" },
+          { name: "F3", step: 6, midi: 53, letter: "F", solfege: "ฟา" },
+          { name: "G3", step: 7, midi: 55, letter: "G", solfege: "ซอล" },
+          { name: "A3", step: 8, midi: 57, letter: "A", solfege: "ลา" },
+          { name: "B3", step: 9, midi: 59, letter: "B", solfege: "ที" },
+          { name: "C4", step: 10, midi: 60, letter: "C", solfege: "โด" }
+        ];
+
+        // รหัสสัญลักษณ์ ชื่อ และคำอธิบายที่ใช้จัดคู่การ์ด
+        var SYMBOL_PAIRS = [
+          { symbol: "sharp", text: "ชาร์ป", sub: "เสียงสูงขึ้นครึ่งเสียง" },
+          { symbol: "flat", text: "แฟล็ต", sub: "เสียงต่ำลงครึ่งเสียง" },
+          { symbol: "natural", text: "เนเชอรัล", sub: "ยกเลิกชาร์ปหรือแฟล็ต" },
+          { symbol: "fermata", text: "แฟร์มาตา", sub: "ยืดเสียงค้างไว้" },
+          { symbol: "quarterRest", text: "ตัวหยุดตัวดำ", sub: "หยุด 1 จังหวะ" },
+          { symbol: "halfRest", text: "ตัวหยุดตัวขาว", sub: "หยุด 2 จังหวะ" },
+          { symbol: "repeat", text: "เครื่องหมายย้อน", sub: "เล่นซ้ำ" },
+          { symbol: "crescendo", text: "เครสเชนโด", sub: "ค่อย ๆ ดังขึ้น" },
+          { symbol: "diminuendo", text: "ดิมินูเอนโด", sub: "ค่อย ๆ เบาลง" },
+          { symbol: "staccato", text: "สตักคาโต", sub: "เล่นสั้น ขาดจากกัน" },
+          { symbol: "accent", text: "แอกเซนต์", sub: "เน้นเสียง" },
+          { symbol: "tie", text: "เส้นโยงเสียง", sub: "รวมค่าโน้ตสองตัว" }
+        ];
+
+        // คำศัพท์และความหมายสำหรับการจับคู่
+        var TERM_PAIRS = [
+          { a: "Allegro", b: "เร็วและร่าเริง" },
+          { a: "Adagio", b: "ช้า สบาย ๆ" },
+          { a: "Presto", b: "เร็วมาก" },
+          { a: "Andante", b: "ระดับก้าวเดิน" },
+          { a: "Forte", b: "ดัง" },
+          { a: "Piano", b: "เบา" },
+          { a: "Crescendo", b: "ค่อย ๆ ดังขึ้น" },
+          { a: "Legato", b: "เสียงต่อเนื่องเชื่อมกัน" },
+          { a: "Staccato", b: "เสียงสั้น ขาดจากกัน" },
+          { a: "Dolce", b: "อ่อนหวาน" },
+          { a: "Fermata", b: "ยืดเสียงค้างไว้" },
+          { a: "Da capo", b: "กลับไปเล่นจากต้นเพลง" }
+        ];
+
+        // รหัส ชื่อ และคำอธิบายของแต่ละโหมด
+        var MODES = [
+          { id: "classic", label: "ปกติ", about: "จับคู่ให้ครบ ใช้จำนวนครั้งให้น้อยที่สุด" },
+          { id: "race", label: "แข่งเวลา", about: "จับคู่ให้ได้มากที่สุดก่อนหมดเวลา" },
+          { id: "ear", label: "ฟังเสียง", about: "การ์ดหนึ่งใบของแต่ละคู่เป็นเสียง ฟังแล้วหาโน้ตที่ตรงกัน" }
+        ];
+
+        // รหัส ชื่อ คำอธิบาย วิธีตรวจ และเป้าหมายของเหรียญ
+        var BADGES = [
+          { id: "firstWin", name: "ก้าวแรก", hint: "ชนะครั้งแรก", test: "wins", goal: 1 },
+          { id: "noMiss", name: "ตาไว", hint: "ชนะโดยไม่พลาดเลย", test: "clean", goal: 0 },
+          { id: "streak5", name: "มือขึ้น", hint: "จับคู่ต่อเนื่อง 5 ครั้ง", test: "streak", goal: 5 },
+          { id: "threeStars", name: "สามดาว", hint: "ได้ 3 ดาวในระดับยาก", test: "stars", goal: 3 },
+          { id: "goodEar", name: "หูทอง", hint: "ชนะโหมดฟังเสียง", test: "ear", goal: 1 },
+          { id: "racer", name: "สายฟ้า", hint: "จับได้ 15 คู่ในโหมดแข่งเวลา", test: "race", goal: 15 },
+          { id: "allDecks", name: "นักสะสม", hint: "ชนะครบทุกสำรับ", test: "decks", goal: 4 }
+        ];
+
+        // ข้อความสั้น ๆ ในหน้าวิธีเล่น
+        var HOWTO = [
+          'แตะการ์ดเพื่อเปิด ครั้งละสองใบ',
+          'ถ้าเป็นคู่กัน การ์ดจะเปิดค้างไว้และได้คะแนน',
+          'จับคู่ติดกันหลายครั้ง คะแนนจะคูณเพิ่ม',
+          'ในโหมดฟังเสียง การ์ดลำโพงคือเสียงของโน้ต ลองฟังแล้วหาโน้ตบนบรรทัด'
+        ];
+        // รหัส ชื่อ และคำอธิบายของสำรับที่สร้างจากตารางด้านบน
+        var EXTRA_DECKS = [
+          { id: 'bass', title: 'กุญแจฟา', about: 'โน้ตบนบรรทัดห้าเส้นกุญแจฟา' },
+          { id: 'symbols', title: 'สัญลักษณ์ดนตรี', about: 'จับคู่สัญลักษณ์กับชื่อเรียก' },
+          { id: 'terms', title: 'ศัพท์อิตาเลียน', about: 'จับคู่ศัพท์กับความหมาย' }
+        ];
+        /* ═══════════ โซน B · ตั้งค่า (แก้ได้) ═══════════ */
+        var CONFIG = {
+          flipBackMs: 900 /* ระยะเวลาแสดงคู่ที่ผิดเป็นมิลลิวินาที */,
+          flipMs: 180 /* ระยะเวลาพลิกการ์ดเป็นมิลลิวินาที */,
+          staffGapPx: 10 /* ระยะห่างบรรทัดเป็นพิกเซล */,
+          noteToneSec: 0.5 /* ความยาวเสียงโน้ตเป็นวินาที */,
+          matchToneSec: 0.25 /* ความยาวเสียงคู่ที่ถูกเป็นวินาที */,
+          confirmMs: 4000 /* ระยะยืนยันก่อนเริ่มใหม่เป็นมิลลิวินาที */,
+          audioRampSec: 0.01 /* เวลาขึ้นและลงของเสียงเป็นวินาที */,
+          masterGain: 0.2 /* ระดับเกนหลัก */,
+          resultCountMs: 400, /* เวลานับคะแนนเป็นมิลลิวินาที */
+          countTickMs: 40, /* ช่วงอัปเดตตัวเลขเป็นมิลลิวินาที */
+          raceStartSec: 60, /* เวลาเริ่มแข่งเป็นวินาที */
+          raceBonusSec: 4, /* เวลาเพิ่มต่อคู่เป็นวินาที */
+          racePairs: 8, /* จำนวนคู่ต่อกระดานแข่ง */
+          peekMs: 2000, /* ระยะเปิดดูเป็นมิลลิวินาที */
+          matchPoints: 100, /* คะแนนต่อการจับคู่ก่อนคูณ */
+          missPenalty: 10, /* คะแนนที่หักต่อคู่ผิด */
+          maxMultiplier: 5, /* ตัวคูณสูงสุด */
+          finishBonus: 200, /* คะแนนจบโหมดปกติต่อหนึ่งดาว */
+          toastMs: 2500, /* ระยะข้อความชั่วคราวเป็นมิลลิวินาที */
+          defaultVolumePercent: 25 /* ระดับเสียงเริ่มต้นเป็นร้อยละ */
+        };
+        /* ═══════════ โซน C · แกนเกม (ห้ามแก้) ═══════════ */
+        var Core = {};
+
+        // สับรายการด้วยตัวเลขสุ่มที่ส่งเข้ามา
+        Core.shuffle = function (items, rng) {
+          var a = items.slice(),
+            i,
+            j,
+            t;
+          for (i = a.length - 1; i > 0; i--) {
+            j = Math.floor(rng() * (i + 1));
+            t = a[i];
+            a[i] = a[j];
+            a[j] = t;
+          }
+          return a;
+        };
+
+        // เลือกคู่การ์ดโดยไม่เลือกซ้ำ
+        Core.pickPairs = function (deck, count, rng) {
+          return Core.shuffle(deck.pairs, rng).slice(0, count);
+        };
+
+        // แยกชื่อโน้ตที่ใช้อักษรซ้ำกัน
+        Core.labelPairs = function (pairs, notes) {
+          return pairs.map(function (pair) {
+            var p = JSON.parse(JSON.stringify(pair));
+            ['a', 'b'].forEach(function (side) {
+              var face = p[side];
+              if (face.kind !== 'text') return;
+              var staff =
+                pair.a.kind === 'staff' ? pair.a : pair.b.kind === 'staff' ? pair.b : null;
+              if (!staff) return;
+              var note = notes.find(function (n) {
+                return n.name === staff.note;
+              });
+              if (!note) return;
+              var matching = pairs
+                .map(function (q) {
+                  var s = q.a.kind === 'staff' ? q.a : q.b.kind === 'staff' ? q.b : null;
+                  return (
+                    s &&
+                    notes.find(function (n) {
+                      return n.name === s.note && n.letter === note.letter;
+                    })
+                  );
+                })
+                .filter(Boolean);
+              if (matching.length > 1) {
+                var sorted = matching
+                  .map(function (n) {
+                    return n.midi;
+                  })
+                  .sort(function (a, b) {
+                    return a - b;
+                  });
+                face.register = note.midi === sorted[0] ? 'ต่ำ' : 'สูง';
+              }
+            });
+            return p;
+          });
+        };
+
+        // สร้างและสับการ์ดสองใบต่อหนึ่งคู่
+        Core.buildCards = function (pairs, rng) {
+          var cards = [];
+          pairs.forEach(function (p) {
+            ['a', 'b'].forEach(function (s) {
+              cards.push({ id: p.key + ':' + s, key: p.key, face: p[s], state: 'down' });
+            });
+          });
+          return Core.shuffle(cards, rng);
+        };
+
+        // ตรวจว่าจับคู่ครบทุกใบหรือยัง
+        Core.isWon = function (s) {
+          return (
+            s.cards.length > 0 &&
+            s.cards.every(function (c) {
+              return c.state === 'matched';
+            })
+          );
+        };
+
+        // เปิดการ์ดหนึ่งใบและตัดสินผลเมื่อเปิดครบสองใบ
+        Core.flip = function (state, id) {
+          if (state.locked || Core.isWon(state)) return state;
+          var card = state.cards.find(function (c) {
+            return c.id === id;
+          });
+          if (!card || card.state !== 'down') return state;
+          var s = Object.assign({}, state, {
+            cards: state.cards.map(function (c) {
+              return Object.assign({}, c);
+            })
+          });
+          var target = s.cards.find(function (c) {
+            return c.id === id;
+          });
+          target.state = 'up';
+          var up = s.cards.filter(function (c) {
+            return c.state === 'up';
+          });
+          if (up.length === 2) {
+            s.turns++;
+            if (up[0].key === up[1].key) {
+              up.forEach(function (c) {
+                c.state = 'matched';
+              });
+              s.found++;
+            } else {
+              s.locked = true;
+              s.pending = up.map(function (c) {
+                return c.id;
+              });
+            }
+          }
+          return s;
+        };
+
+        // คว่ำคู่ที่เปิดผิดและปลดล็อก
+        Core.resolve = function (state) {
+          if (!state.locked || !state.pending) return state;
+          return Object.assign({}, state, {
+            locked: false,
+            pending: [],
+            cards: state.cards.map(function (c) {
+              return state.pending.indexOf(c.id) >= 0
+                ? Object.assign({}, c, { state: 'down' })
+                : Object.assign({}, c);
+            })
+          });
+        };
+
+        // แปลงตำแหน่งโน้ตเป็นพิกัดแนวตั้ง
+        Core.stepY = function (step, bottomY, gapPx) {
+          return bottomY - (step * gapPx) / 2;
+        };
+
+        // หาตำแหน่งเส้นน้อยที่ต้องวาด
+        Core.ledgerSteps = function (step) {
+          var out = [],
+            i;
+          if (step <= -2) {
+            for (i = -2; i >= step; i -= 2) out.push(i);
+          } else if (step >= 10) {
+            for (i = 10; i <= step; i += 2) out.push(i);
+          }
+          return out;
+        };
+
+        // แปลงเลข MIDI เป็นความถี่เสียง
+        Core.midiToHz = function (midi) {
+          return 440 * Math.pow(2, (midi - 69) / 12);
+        };
+
+        // คำนวณดาวจากจำนวนครั้งที่เปิด
+        Core.stars = function (turns, pairs) {
+          return turns <= pairs + 2 ? 3 : turns <= pairs * 2 ? 2 : 1;
+        };
+
+        // คืนโน้ตตามกุญแจและชื่อที่ระบุบนการ์ด
+        Core.findNote = function (face) {
+          var table = face.clef === 'bass' ? BASS_NOTES : NOTES;
+          return table.find(function (note) {
+            return note.name === face.note;
+          });
+        };
+
+        // เปลี่ยนขั้นบนบรรทัดห้าเส้นเป็นคำอธิบายตำแหน่ง
+        Core.describeStep = function (step) {
+          if (step <= -2) return 'บนเส้นน้อยใต้บรรทัด';
+          if (step >= 10) return 'บนเส้นน้อยเหนือบรรทัด';
+          if (step === -1) return 'ใต้บรรทัด';
+          if (step === 9) return 'เหนือบรรทัด';
+          return step % 2 === 0 ? 'บนเส้นที่ ' + (step / 2 + 1) : 'ในช่องที่ ' + ((step + 1) / 2);
+        };
+
+        // หาว่าสำรับใช้สำหรับฟังเสียงได้หรือไม่
+        Core.canListen = function (deck) {
+          return deck.pairs.some(function (pair) {
+            return pair.a.kind === 'staff' || pair.b.kind === 'staff';
+          });
+        };
+
+        // สร้างคู่การ์ดตามโหมด โดยไม่แก้ไขข้อมูลสำรับ
+        Core.modePairs = function (deck, mode, count, rng) {
+          if (mode !== 'ear') return Core.pickPairs(deck, count, rng);
+          var staffPairs = deck.pairs.filter(function (pair) {
+            return pair.a.kind === 'staff' || pair.b.kind === 'staff';
+          });
+          return Core.pickPairs({ pairs: staffPairs }, count, rng).map(function (pair) {
+            var note = pair.a.kind === 'staff' ? pair.a : pair.b;
+            return {
+              key: pair.key,
+              a: note,
+              b: { kind: 'sound', note: note.note, clef: note.clef }
+            };
+          });
+        };
+
+        // เพิ่มคะแนน จำนวนคู่ ตัวคูณ และเวลาเมื่อจับคู่ได้
+        Core.scoreMatch = function (state) {
+          var streak = (state.streak || 0) + 1;
+          var multiplier = Math.min(streak, CONFIG.maxMultiplier);
+          var update = {
+            score: (state.score || 0) + CONFIG.matchPoints * multiplier,
+            matches: (state.matches || 0) + 1,
+            streak: streak,
+            bestStreak: Math.max(state.bestStreak || 0, streak),
+            multiplier: multiplier
+          };
+          if (state.mode === 'race') update.secondsLeft = state.secondsLeft + CONFIG.raceBonusSec;
+          return Object.assign({}, state, update);
+        };
+
+        // หักคะแนนและบันทึกรหัสของการ์ดที่เปิดผิดคู่
+        Core.scoreMiss = function (state, keys) {
+          return Object.assign({}, state, {
+            score: Math.max(0, (state.score || 0) - CONFIG.missPenalty),
+            misses: (state.misses || 0) + 1,
+            streak: 0,
+            multiplier: 1,
+            confusions: (state.confusions || []).concat([keys.slice()])
+          });
+        };
+
+        // เพิ่มคะแนนโบนัสเมื่อเล่นโหมดปกติจนจบ
+        Core.finalScore = function (state, mode) {
+          var bonus = mode === 'classic' && Core.isWon(state)
+            ? CONFIG.finishBonus * Core.stars(state.turns, state.pairs)
+            : 0;
+          return (state.score || 0) + bonus;
+        };
+
+        // เรียงรหัสการ์ดที่เปิดผิดบ่อยจากมากไปหาน้อย
+        Core.rankConfusions = function (misses) {
+          var counts = new Map();
+          misses.forEach(function (keys) {
+            keys.forEach(function (key) {
+              counts.set(key, (counts.get(key) || 0) + 1);
+            });
+          });
+          return Array.from(counts.keys()).sort(function (a, b) {
+            return counts.get(b) - counts.get(a) || a.localeCompare(b);
+          }).filter(function (key) {
+            return counts.get(key) > 1;
+          });
+        };
+
+        // ตรวจเงื่อนไขเหรียญจากผลเกมและสถิติสะสม
+        Core.badgeRules = {
+          wins: function (r, goal) { return Object.keys(r.wins).length >= goal; },
+          clean: function (r, goal) { return r.won && r.mode === 'classic' && r.misses === goal; },
+          streak: function (r, goal) { return r.bestStreak >= goal; },
+          stars: function (r, goal) { return r.level === 'hard' && r.stars >= goal; },
+          ear: function (r) { return r.won && r.mode === 'ear'; },
+          race: function (r, goal) { return r.mode === 'race' && r.matches >= goal; },
+          decks: function (r) {
+            return DECKS.every(function (deck) { return r.wins[deck.id] > 0; });
+          }
+        };
+
+        // สร้างสำรับเพิ่มเติมจากตารางโน้ต สัญลักษณ์ และศัพท์
+        function addBuiltInDecks() {
+          var bass = BASS_NOTES.map(function (note) {
+            return {
+              key: note.name,
+              a: { kind: 'staff', clef: 'bass', note: note.name },
+              b: { kind: 'text', text: note.letter, sub: note.solfege }
+            };
+          });
+          var symbols = SYMBOL_PAIRS.map(function (row) {
+            return {
+              key: row.symbol,
+              a: { kind: 'symbol', symbol: row.symbol },
+              b: { kind: 'text', text: row.text, sub: row.sub }
+            };
+          });
+          var terms = TERM_PAIRS.map(function (row) {
+            return { key: row.a, a: { kind: 'text', text: row.a }, b: { kind: 'text', text: row.b } };
+          });
+          [bass, symbols, terms].forEach(function (pairs, index) {
+            DECKS.push(Object.assign({}, EXTRA_DECKS[index], { pairs: pairs }));
+          });
+        }
+
+        // ตรวจชนิดการ์ดและข้อมูลที่การ์ดอ้างถึง
+        Core.validFace = function (face) {
+          if (face.kind === 'staff') return Boolean(Core.findNote(face));
+          if (face.kind === 'symbol') {
+            return SYMBOL_PAIRS.some(function (row) { return row.symbol === face.symbol; });
+          }
+          return face.kind === 'text' && Boolean(face.text);
+        };
+
+        // ตรวจคะแนน โหมด ตำแหน่ง และผลเล่นจากตัวอย่างที่ทำซ้ำได้
+        function checkV2Core(check, rng) {
+          check('ตำแหน่งบนบรรทัดและเส้นน้อย', function () {
+            return Core.describeStep(2) === 'บนเส้นที่ 2' && Core.describeStep(3) === 'ในช่องที่ 2'
+              && Core.describeStep(-2) === 'บนเส้นน้อยใต้บรรทัด'
+              && Core.describeStep(10) === 'บนเส้นน้อยเหนือบรรทัด';
+          });
+          check('ตำแหน่งโน้ตกุญแจฟา', function () {
+            return Core.findNote({ clef: 'bass', note: 'G2' }).step === 0
+              && Core.findNote({ clef: 'bass', note: 'D3' }).step === 4
+              && Core.findNote({ clef: 'bass', note: 'A3' }).step === 8
+              && Core.ledgerSteps(Core.findNote({ clef: 'bass', note: 'C4' }).step)[0] === 10;
+          });
+          check('คะแนนต่อเนื่องและการหักคะแนน', function () {
+            var a = Core.scoreMatch({});
+            var b = Core.scoreMatch(a);
+            var c = Core.scoreMatch(b);
+            var d = Core.scoreMiss(c, ['C4', 'D4']);
+            return a.score === 100 && b.score === 300 && c.score === 600
+              && d.score === 590 && d.streak === 0 && Core.scoreMiss({}, []).score === 0;
+          });
+          check('คู่การ์ดโหมดฟังเสียง', function () {
+            var pairs = Core.modePairs(DECKS[0], 'ear', 6, rng());
+            return pairs.length === 6 && pairs.every(function (p) {
+              return p.a.kind === 'staff' && p.b.kind === 'sound' && p.a.note === p.b.note;
+            }) && Core.modePairs({pairs: []}, 'ear', 6, rng()).length === 0;
+          });
+          check('คะแนนและเวลาเมื่อจับคู่ในโหมดแข่งเวลา', function () {
+            var s = Core.scoreMatch({ mode: 'race', secondsLeft: CONFIG.raceStartSec });
+            return s.secondsLeft === CONFIG.raceStartSec + CONFIG.raceBonusSec && s.score === CONFIG.matchPoints;
+          });
+          check('นับการ์ดที่เปิดผิดบ่อย', function () {
+            return Core.rankConfusions([['E4','F4'],['E4','G4'],['F4','E4']]).join() === 'E4,F4';
+          });
+          var yes = {
+            won: true, mode: 'classic', misses: 0, bestStreak: 5, level: 'hard',
+            stars: 3, matches: 16, wins: {treble: 1, bass: 1, symbols: 1, terms: 1}
+          };
+          var no = { won: false, mode: 'classic', misses: 1, bestStreak: 0, stars: 0, matches: 0, wins: {} };
+          BADGES.forEach(function (badge) {
+            check('เหรียญ ' + badge.name, function () {
+              var good = Object.assign({}, yes, {mode: badge.test === 'ear' ? 'ear' :
+                badge.test === 'race' ? 'race' : 'classic'});
+              return Core.badgeRules[badge.test](good, badge.goal) && !Core.badgeRules[badge.test](no, badge.goal);
+            });
+          });
+          MODES.forEach(function (mode) {
+            check('เล่นจนจบโหมด ' + mode.label, function () {
+              var pairs = Core.modePairs(DECKS[0], mode.id, 6, rng());
+              var game = {mode: mode.id, cards: Core.buildCards(pairs, rng()), pairs: pairs.length,
+                locked: false, pending: [], matches: 0, turns: 0, found: 0, secondsLeft: CONFIG.raceStartSec};
+              pairs.forEach(function (pair) {
+                game = Core.flip(Core.flip(game, pair.key + ':a'), pair.key + ':b');
+                game = Core.scoreMatch(game);
+              });
+              return Core.isWon(game) && game.matches === pairs.length && Core.finalScore(game, mode.id) > 0;
+            });
+          });
+        }
+
+        // ตรวจแกนเกมและข้อมูลสำรับแยกจากเกมที่กำลังเล่น
+        function runSelfCheck() {
+          var results = [];
+
+          // บันทึกผลการตรวจหนึ่งข้อ
+          function check(name, fn) {
+            try {
+              var ok = !!fn();
+              results.push({ name: name, ok: ok, detail: '' });
+            } catch (e) {
+              results.push({ name: name, ok: false, detail: String(e) });
+            }
+          }
+
+          // สร้างตัวสุ่มที่ให้ผลซ้ำได้สำหรับการตรวจ
+          function rng() {
+            var x = 123456;
+            return function () {
+              x = (x * 1664525 + 1013904223) >>> 0;
+              return x / 4294967296;
+            };
+          }
+          var p = DECKS[0].pairs.slice(0, 2),
+            cards = Core.buildCards(p, rng());
+
+          // สร้างสถานะพร้อมการ์ดสำหรับการตรวจ
+          function state() {
+            return {
+              cards: cards.map(function (c) {
+                return Object.assign({}, c);
+              }),
+              turns: 0,
+              found: 0,
+              locked: false,
+              pending: []
+            };
+          }
+          check('จำนวนการ์ดและคู่', function () {
+            return (
+              cards.length === 4 &&
+              p.every(function (q) {
+                return (
+                  cards.filter(function (c) {
+                    return c.key === q.key;
+                  }).length === 2
+                );
+              })
+            );
+          });
+          check('สับการ์ดแบบกำหนดค่า', function () {
+            return (
+              JSON.stringify(cards) === JSON.stringify(Core.buildCards(p, rng())) &&
+              cards
+                .map(function (c) {
+                  return c.id;
+                })
+                .sort()
+                .join() ===
+                Core.buildCards(p, function () {
+                  return 0;
+                })
+                  .map(function (c) {
+                    return c.id;
+                  })
+                  .sort()
+                  .join()
+            );
+          });
+          check('พลิกคู่ที่ตรงกัน', function () {
+            var a = cards.filter(function (c) {
+              return c.key === p[0].key;
+            });
+            var s = Core.flip(Core.flip(state(), a[0].id), a[1].id);
+            return (
+              s.turns === 1 &&
+              s.found === 1 &&
+              s.cards.filter(function (c) {
+                return c.state === 'matched';
+              }).length === 2
+            );
+          });
+          check('พลิกคู่ที่ไม่ตรงและคว่ำกลับ', function () {
+            var a = cards.find(function (c) {
+                return c.key === p[0].key;
+              }),
+              b = cards.find(function (c) {
+                return c.key === p[1].key;
+              });
+            var s = Core.flip(Core.flip(state(), a.id), b.id);
+            return (
+              s.locked &&
+              !Core.resolve(s).locked &&
+              Core.resolve(s).cards.every(function (c) {
+                return c.state === 'down';
+              })
+            );
+          });
+          check('ไม่พลิกการ์ดซ้ำหรือขณะล็อก', function () {
+            var a = cards[0],
+              s = Core.flip(state(), a.id),
+              t = Core.flip(s, a.id);
+            var u = Object.assign({}, s, { locked: true });
+            var m = state();
+            m.cards[0].state = 'matched';
+            return (
+              t === s && Core.flip(u, cards[1].id) === u && Core.flip(m, cards[0].id) === m
+            );
+          });
+          check('ตรวจการชนะ', function () {
+            var s = state();
+            s.cards.forEach(function (c) {
+              c.state = 'matched';
+            });
+            var yes = Core.isWon(s);
+            s.cards[0].state = 'down';
+            return yes && !Core.isWon(s);
+          });
+          check('ตำแหน่งโน้ตบนบรรทัด', function () {
+            return (
+              Core.stepY(0, 60, 10) === 60 &&
+              Core.stepY(4, 60, 10) === 40 &&
+              Core.stepY(8, 60, 10) === 20
+            );
+          });
+          check('เส้นน้อย', function () {
+            return (
+              JSON.stringify([-2, -1, 9, 10].map(Core.ledgerSteps)) === '[[-2],[],[],[10]]'
+            );
+          });
+          check('ความถี่เสียง', function () {
+            return Core.midiToHz(69) === 440 && Math.abs(Core.midiToHz(60) - 261.63) < 0.01;
+          });
+          check('ชื่อโน้ตสูงต่ำ', function () {
+            var both = Core.labelPairs([DECKS[0].pairs[0], DECKS[0].pairs[7]], NOTES),
+              one = Core.labelPairs([DECKS[0].pairs[0]], NOTES);
+            return (
+              both[0].b.register === 'ต่ำ' &&
+              both[1].b.register === 'สูง' &&
+              !one[0].b.register
+            );
+          });
+          check('เกณฑ์ดาว', function () {
+            return (
+              Core.stars(8, 6) === 3 && Core.stars(12, 6) === 2 && Core.stars(13, 6) === 1
+            );
+          });
+          DECKS.forEach(function (deck) {
+            check('ตรวจสำรับ ' + deck.title, function () {
+              return deck.pairs.length >= 6 && validPairs(deck).length === deck.pairs.length;
+            });
+          });
+          checkV2Core(check, rng);
+          var passed = results.filter(function (r) {
+            return r.ok;
+          }).length;
+          return { passed: passed, failed: results.length - passed, results: results };
+        }
+        /* ═══════════ โซน D · หน้าจอและเสียง (ห้ามแก้ถ้าไม่จำเป็น) ═══════════ */
+        var handlers = {},
+          errors = [],
+          memory = {},
+          storageOK = true,
+          settings = read('note-pairs-settings-v1', {}),
+          best = read('note-pairs-best-v1', {}),
+          state,
+          deckId = 'treble',
+          levelId = settings.level || 'easy',
+          nameStyle = settings.names || 'letters',
+          volume =
+            typeof settings.volume === 'number'
+              ? settings.volume
+              : CONFIG.defaultVolumePercent,
+          timer = null,
+          audio = null,
+          master = null,
+          confirmAction = '',
+          confirmUntil = 0;
+
+        var modeId = 'classic';
+        var activeScreen = 'home';
+        var clockTimer = null;
+        var clockAnchorMs = null;
+        var elapsedGameMs = 0;
+        var lastSecond = null;
+        var lastSound = null;
+        var toastTimer = null;
+        var theme = settings.theme || 'auto';
+        var reduced = Boolean(settings.reduced);
+        var STATS_KEY = 'note-pairs-stats-v2';
+        var stats = read(STATS_KEY, null);
+
+        // คืนองค์ประกอบตามรหัสในหน้าเว็บ
+        function byId(id) {
+          return document.getElementById(id);
+        }
+
+        // ย้ายผลที่ดีที่สุดเดิมมาไว้ในสถิติโหมดปกติ
+        function migrateStats() {
+          if (stats) return;
+          stats = { best: {}, badges: [], wins: {}, seenHowto: false };
+          Object.keys(best).forEach(function (key) {
+            var parts = key.split(':');
+            stats.best[parts[0] + ':classic:' + parts[1]] = { score: 0, turns: best[key], ms: 0 };
+          });
+          write(STATS_KEY, stats);
+        }
+
+        // แสดงหน้าที่เลือกและส่งโฟกัสไปที่หัวเรื่อง
+        function showScreen(next) {
+          var from = activeScreen;
+          activeScreen = next;
+          document.querySelectorAll('[data-screen]').forEach(function (screen) {
+            screen.hidden = screen.dataset.screen !== next;
+            screen.classList.toggle('is-active', !screen.hidden);
+          });
+          var heading = document.querySelector('[data-screen="' + next + '"] h1');
+          if (heading) heading.focus();
+          if (from !== next) emit('screenChange', { from: from, to: next });
+        }
+
+        // แสดงข้อความชั่วคราวโดยให้มีเพียงข้อความเดียว
+        function showToast(message) {
+          clearTimeout(toastTimer);
+          var box = byId('toast');
+          box.textContent = message;
+          box.hidden = false;
+          toastTimer = setTimeout(function () {
+            box.hidden = true;
+          }, CONFIG.toastMs);
+        }
+
+        // วาดรูปสั้น ๆ จากเส้น จุด และพื้นที่ประกอบสัญลักษณ์
+        function musicIcon(path, dots) {
+          var ns = 'http://www.w3.org/2000/svg';
+          var svg = document.createElementNS(ns, 'svg');
+          svg.setAttribute('viewBox', '0 0 48 48');
+          svg.setAttribute('aria-hidden', 'true');
+          var mark = document.createElementNS(ns, 'path');
+          mark.setAttribute('d', path);
+          mark.setAttribute('fill', 'none');
+          mark.setAttribute('stroke', 'currentColor');
+          mark.setAttribute('stroke-width', '2.4');
+          mark.setAttribute('stroke-linecap', 'round');
+          mark.setAttribute('stroke-linejoin', 'round');
+          svg.appendChild(mark);
+          (dots || []).forEach(function (pos) {
+            var point = document.createElementNS(ns, 'circle');
+            point.setAttribute('cx', pos[0]);
+            point.setAttribute('cy', pos[1]);
+            point.setAttribute('r', pos[2] || 2);
+            point.setAttribute('fill', 'currentColor');
+            svg.appendChild(point);
+          });
+          return svg;
+        }
+
+        // วาดสัญลักษณ์ดนตรีจากรหัสที่กำหนด
+        function drawSymbol(id) {
+          var paths = {
+            sharp: 'M18 10v28m11-30v28M11 21l25-5M11 32l25-5',
+            flat: 'M19 8v29q13-6 11-13q-2-6-11 0',
+            natural: 'M18 9v24l12-6V11m0 16v12M18 22l12-6',
+            fermata: 'M9 29q15-25 30 0',
+            quarterRest: 'M21 8l7 10l-8 9l9 7q-12-3-5 6',
+            halfRest: 'M7 29h34M17 29v-7h14v7',
+            repeat: 'M8 12h32M8 18h32M8 24h32M8 30h32M8 36h32M35 12v24m5-24v24',
+            crescendo: 'M38 15L10 24l28 9',
+            diminuendo: 'M10 15l28 9l-28 9',
+            staccato: 'M16 30q6-8 12-3q2 5-7 7q-9 2-5-4m12-2V10',
+            accent: 'M14 11l19 4l-19 4m2 11q6-8 12-3q2 5-7 7q-9 2-5-4m12-2V10',
+            tie: 'M11 30h26m-24 4q11 12 22 0M17 30V14m15 16V14'
+          };
+          var dots = { fermata: [[24, 27]], repeat: [[29, 21], [29, 27]],
+            staccato: [[21, 39]], tie: [[14, 30, 3], [29, 30, 3]] };
+          var svg = musicIcon(paths[id] || '', dots[id]);
+          svg.setAttribute('class', 'symbol-icon');
+          return svg;
+        }
+
+        // วาดเครื่องหมายลำโพงสำหรับเล่นหรือฟังเสียงซ้ำ
+        function drawSpeaker() {
+          var svg = musicIcon('M9 19h7l9-8v26l-9-8H9zM31 17q8 7 0 14m5-19q12 12 0 24');
+          svg.setAttribute('class', 'sound-icon');
+          return svg;
+        }
+
+        // คืนสำรับที่เลือกบนหน้าแรก
+        function currentDeck() {
+          return DECKS.find(function (deck) { return deck.id === deckId; }) || DECKS[0];
+        }
+
+        // สร้างสัญลักษณ์เหรียญ พร้อมระบุว่าได้รับแล้วหรือยัง
+        function drawMedal(badge) {
+          var svg = musicIcon('M13 5l5 15m17-15l-5 15');
+          var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('cx', 24);
+          circle.setAttribute('cy', 31);
+          circle.setAttribute('r', 11);
+          circle.setAttribute('fill', 'none');
+          circle.setAttribute('stroke', 'currentColor');
+          circle.setAttribute('stroke-width', 2);
+          svg.classList.toggle('medal-earned', stats.badges.indexOf(badge.id) !== -1);
+          svg.appendChild(circle);
+          svg.removeAttribute('aria-hidden');
+          svg.setAttribute('role', 'img');
+          svg.setAttribute('aria-label', badge.name + ' · ' + badge.hint);
+          return svg;
+        }
+
+        // แสดงรายการเหรียญทั้งหมดบนหน้าแรกและหน้ารายละเอียด
+        function renderMedals() {
+          byId('homeBadges').textContent = '';
+          byId('badgeList').textContent = '';
+          BADGES.forEach(function (badge) {
+            byId('homeBadges').appendChild(drawMedal(badge));
+            var line = document.createElement('li');
+            line.append(drawMedal(badge), badge.name + ' · ' + badge.hint);
+            byId('badgeList').appendChild(line);
+          });
+        }
+
+        // แสดงตัวเลือกและสถิติของสำรับ ระดับ และโหมด
+        function renderHome() {
+          var decks = byId('decks');
+          decks.textContent = '';
+          DECKS.forEach(function (deck) {
+            var btn = document.createElement('button');
+            btn.setAttribute('aria-pressed', String(deck.id === deckId));
+            var sample;
+            if (deck.id === 'bass') sample = drawStaff('D3', 'bass');
+            else if (deck.id === 'treble') sample = drawStaff('G4');
+            else if (deck.id === 'symbols') sample = drawSymbol('sharp');
+            else sample = drawSymbol('accent');
+            var label = document.createElement('strong');
+            label.textContent = deck.title;
+            var about = document.createElement('small');
+            about.textContent = deck.about || '';
+            btn.append(sample, label, about);
+            btn.onclick = function () {
+              deckId = deck.id;
+              renderHome();
+              decks.querySelector('[aria-pressed="true"]').focus();
+            };
+            decks.appendChild(btn);
+          });
+          var supportsEar = Core.canListen(currentDeck());
+          var modes = byId('modes');
+          modes.textContent = '';
+          MODES.forEach(function (mode) {
+            var btn = document.createElement('button');
+            btn.disabled = mode.id === 'ear' && !supportsEar;
+            btn.setAttribute('aria-pressed', String(mode.id === modeId));
+            btn.textContent = mode.label;
+            btn.onclick = function () {
+              modeId = mode.id;
+              renderHome();
+              modes.querySelector('[aria-pressed="true"]').focus();
+            };
+            modes.appendChild(btn);
+          });
+          byId('earNotice').textContent = supportsEar ? ''
+            : 'โหมดฟังเสียงใช้ได้กับสำรับที่มีโน้ตบนบรรทัดเท่านั้น';
+          byId('startPlay').disabled = modeId === 'ear' && !supportsEar;
+          byId('levelChoice').hidden = modeId === 'race';
+          byId('modeAbout').textContent = MODES.find(function (mode) { return mode.id === modeId; }).about;
+          var record = stats.best[deckId + ':' + modeId + ':' + roundLevel()];
+          byId('homeBest').textContent = !record ? ''
+            : 'คะแนนสูงสุด ' + record.score
+              + (record.turns ? ' · น้อยที่สุดที่เคยทำได้ ' + record.turns + ' ครั้ง' : '');
+          renderMedals();
+          renderOptions();
+        }
+
+        // คืนระดับสำหรับโหมดที่เลือก โดยโหมดแข่งเวลาใช้แปดคู่
+        function roundLevel() {
+          return modeId === 'race' ? 'medium' : currentLevel().id;
+        }
+
+        // อัปเดตเวลาจริงด้วยนาฬิกาของเบราว์เซอร์
+        function syncClock(now) {
+          if (clockAnchorMs === null) return;
+          var delta = Math.max(0, now - clockAnchorMs);
+          clockAnchorMs = now;
+          elapsedGameMs += delta;
+          if (state.mode === 'race') {
+            state.secondsLeft = Math.max(0, state.secondsLeft - delta / 1000);
+          }
+        }
+
+        // วาดแถบเวลาและส่งเหตุการณ์เมื่อจำนวนวินาทีเปลี่ยน
+        function renderClock() {
+          if (state.mode !== 'race') return;
+          var secs = Math.ceil(state.secondsLeft);
+          byId('clockReadout').textContent = secs + ' วินาที';
+          var bar = byId('clockBar');
+          bar.max = Math.max(CONFIG.raceStartSec, state.secondsLeft);
+          bar.value = state.secondsLeft;
+          if (secs !== lastSecond) {
+            lastSecond = secs;
+            emit('timeTick', { secondsLeft: secs });
+          }
+        }
+
+        // หยุดตัวจับเวลาโดยเก็บเวลาที่ใช้ไปแล้ว
+        function stopClock() {
+          syncClock(performance.now());
+          clearInterval(clockTimer);
+          clockTimer = null;
+          clockAnchorMs = null;
+        }
+
+        // เริ่มติดตามเวลาใหม่หรือเดินต่อจากค่าที่หยุดไว้
+        function startClock() {
+          if (document.hidden || activeScreen !== 'play') return;
+          clockAnchorMs = performance.now();
+          if (state.mode === 'race') {
+            clockTimer = setInterval(function () {
+              syncClock(performance.now());
+              renderClock();
+              if (state.secondsLeft <= 0) endRound(false);
+            }, 100);
+          }
+        }
+
+        // ให้ข้อมูลดนตรีสั้น ๆ สำหรับคู่ที่เพิ่งจับได้
+        function explainMatch(key) {
+          var pair = currentDeck().pairs.find(function (item) { return item.key === key; });
+          if (!pair) return;
+          var face = pair.a.kind === 'staff' ? pair.a : pair.b;
+          var note = face.kind === 'staff' ? Core.findNote(face) : null;
+          byId('fact').textContent = note
+            ? note.solfege + ' (' + note.letter + ') อยู่' + Core.describeStep(note.step)
+            : pair.b.sub || pair.b.text || '';
+        }
+
+        // เปลี่ยนคะแนนบนจอและแจ้งข้อมูลแก่ส่วนเสริม
+        function showScore(before) {
+          var points = byId('playScore');
+          points.textContent = state.score;
+          byId('streak').textContent = 'ต่อเนื่อง ×' + state.multiplier;
+          points.classList.remove('score-pop');
+          if (state.score > before.score) {
+            points.getBoundingClientRect();
+            points.classList.add('score-pop');
+          }
+          emit('scoreChange', {
+            score: state.score, delta: state.score - before.score,
+            streak: state.streak, multiplier: state.multiplier
+          });
+        }
+
+        // แจกการ์ดตามโหมดด้วยข้อมูลสำรับที่ผ่านการตรวจ
+        function dealCards() {
+          var deck = currentDeck();
+          var level = LEVELS.find(function (l) { return l.id === roundLevel(); });
+          var valid = validPairs(deck);
+          var count = modeId === 'race' ? CONFIG.racePairs : level.pairs;
+          var deckForPlay = { pairs: valid };
+          var noteTable = deck.id === 'bass' ? BASS_NOTES : NOTES;
+          var pairs = Core.labelPairs(Core.modePairs(deckForPlay, modeId, count, Math.random), noteTable);
+          byId('notice').textContent = pairs.length < count
+            ? 'สำรับนี้มีไม่ถึง ' + count + ' คู่ จึงใช้ทุกคู่ที่มี' : '';
+          var deal = {
+            cards: Core.buildCards(pairs, Math.random), deckId: deck.id,
+            level: level.id, pairs: pairs.length, cols: level.cols, found: 0, locked: false, pending: []
+          };
+          return deal;
+        }
+
+        // แสดงหน้าผลและบันทึกสถิติ เหรียญ และรายการที่พลาด
+        function endRound(won) {
+          if (activeScreen !== 'play') return;
+          stopClock();
+          clearTimeout(timer);
+          var score = Core.finalScore(state, state.mode);
+          var starCount = won ? Core.stars(state.turns, state.pairs) : 0;
+          var key = state.deckId + ':' + state.mode + ':' + state.level;
+          var old = stats.best[key];
+          var isNew = !old || score > old.score;
+          var ms = Math.round(elapsedGameMs);
+          if (isNew) stats.best[key] = { score: score, turns: state.turns, ms: ms };
+          if (won) stats.wins[state.deckId] = (stats.wins[state.deckId] || 0) + 1;
+          var result = {
+            deckId: state.deckId, mode: state.mode, level: state.level, won: won,
+            score: score, turns: state.turns, matches: state.matches, misses: state.misses,
+            bestStreak: state.bestStreak, ms: ms, confusions: state.confusions.slice()
+          };
+          var fresh = BADGES.filter(function (badge) {
+            return stats.badges.indexOf(badge.id) < 0 && Core.badgeRules[badge.test](
+              Object.assign({ stars: starCount, wins: stats.wins }, result), badge.goal
+            );
+          });
+          fresh.forEach(function (badge) {
+            stats.badges.push(badge.id);
+            emit('badgeEarned', { id: badge.id, name: badge.name });
+          });
+          write(STATS_KEY, stats);
+          var box = byId('finish');
+          box.classList.remove('is-revealed');
+          box.textContent = '';
+          byId('resultHeading').textContent = won ? 'จับคู่ครบแล้ว' : 'หมดเวลา';
+          var scoreLine = document.createElement('h2');
+          scoreLine.textContent = 'คะแนน ' + score;
+          box.appendChild(scoreLine);
+          var lines = [
+            'เปิดไป ' + result.turns + ' ครั้ง',
+            'จับได้ ' + result.matches + ' คู่',
+            'ความแม่นยำ ' + Math.round(result.matches * 100 / Math.max(1, result.turns)) + '%',
+            'ต่อเนื่องสูงสุด ' + result.bestStreak + ' ครั้ง',
+            'ใช้เวลา ' + formatTime(ms)
+          ];
+          if (state.mode === 'classic' && won) {
+            lines.unshift(['', 'ผ่านแล้ว 1 ดาว', 'ดีมาก 2 ดาว', 'ยอดเยี่ยม 3 ดาว'][starCount]);
+          }
+          if (isNew) lines.unshift('สถิติใหม่ของโหมดนี้');
+          lines.forEach(function (line, index) {
+            var p = document.createElement('p');
+            p.style.setProperty('--row', index);
+            p.textContent = line;
+            box.appendChild(p);
+          });
+          var caption = document.createElement('h2');
+          caption.textContent = 'โน้ตที่สับสนบ่อย';
+          box.appendChild(caption);
+          var confused = Core.rankConfusions(result.confusions).slice(0, 3);
+          if (confused.length === 0) box.append('ไม่มีคู่ไหนที่พลาดซ้ำ');
+          confused.forEach(function (id) {
+            var row = document.createElement('p');
+            var pair = currentDeck().pairs.find(function (entry) { return entry.key === id; });
+            if (!pair) return;
+            if (pair.a.kind === 'staff') row.append(drawStaff(pair.a.note, pair.a.clef));
+            else if (pair.a.kind === 'symbol') row.append(drawSymbol(pair.a.symbol));
+            row.append(pair.b.text || id);
+            box.appendChild(row);
+          });
+          playTone(won ? 659.25 : 293.66, 0.2, 0);
+          if (!reduced && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) && score > 0) {
+            animateResult(scoreLine, score);
+          }
+          showScreen('result');
+          box.getBoundingClientRect();
+          box.classList.add('is-revealed');
+          if (fresh.length) showToast('ได้เหรียญ "' + fresh[0].name + '"');
+          emit('gameEnd', result);
+        }
+
+        // ค่อย ๆ เพิ่มตัวเลขคะแนนบนหน้าสรุป
+        function animateResult(label, score) {
+          var start = performance.now();
+          label.textContent = 'คะแนน 0';
+          var timerId = setInterval(function () {
+            var portion = Math.min(1, Math.max(0, performance.now() - start) / CONFIG.resultCountMs);
+            label.textContent = 'คะแนน ' + Math.round(score * portion);
+            if (activeScreen !== 'result' || portion >= 1) clearInterval(timerId);
+          }, CONFIG.countTickMs);
+        }
+
+        // คืนข้อความนาทีและวินาทีสำหรับหน้าแสดงผล
+        function formatTime(ms) {
+          var seconds = Math.floor(ms / 1000);
+          return Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0');
+        }
+
+        // สลับธีมและลดการเคลื่อนไหวตามค่าของผู้เล่น
+        function applyOptions() {
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.dataset.reduce = String(reduced);
+          byId('theme').value = theme;
+          byId('reduce').checked = reduced;
+        }
+
+        // สร้างภาพประกอบสี่ขั้นของหน้าวิธีเล่น
+        function renderHowto() {
+          HOWTO.forEach(function (tip, index) {
+            var li = document.createElement('li');
+            var svg = index === 3 ? drawSpeaker() : drawStaff(['C4', 'E4', 'G4'][index]);
+            li.append(svg, tip);
+            byId('instructions').appendChild(li);
+          });
+        }
+
+        // เปิดหน้าแรกและแสดงตัวเลือกล่าสุด
+        function returnHome() {
+          stopClock();
+          clearTimeout(timer);
+          showScreen('home');
+          renderHome();
+        }
+
+        // ใช้ได้เฉพาะเมื่อเล่นโหมดจับเวลา
+        function addTime(sec) {
+          if (!state || state.mode !== 'race' || !Number.isFinite(sec)) return;
+          syncClock(performance.now());
+          state.secondsLeft = Math.max(0, state.secondsLeft + sec);
+          renderClock();
+        }
+
+        // คืนรหัสคู่การ์ดหนึ่งคู่โดยไม่แก้สถานะการ์ด
+        function hintPair() {
+          if (!state) return [];
+          var first = state.cards.find(function (card) { return card.state !== 'matched'; });
+          return first ? state.cards.filter(function (card) {
+            return card.key === first.key;
+          }).map(function (card) { return card.id; }) : [];
+        }
+
+        // อ่านค่าที่เก็บไว้และใช้ค่าเริ่มต้นเมื่ออ่านไม่ได้
+        function read(key, fallback) {
+          try {
+            var v = localStorage.getItem(key);
+            return v ? JSON.parse(v) : fallback;
+          } catch (e) {
+            storageOK = false;
+            return memory[key] || fallback;
+          }
+        }
+
+        // เก็บค่าในหน่วยความจำและเบราว์เซอร์
+        function write(key, value) {
+          memory[key] = value;
+          try {
+            localStorage.setItem(key, JSON.stringify(value));
+          } catch (e) {
+            storageOK = false;
+            notice();
+          }
+        }
+
+        // แสดงข้อความเมื่อบันทึกข้อมูลไม่ได้
+        function notice() {
+          document.getElementById('notice').textContent = storageOK
+            ? ''
+            : 'เบราว์เซอร์นี้เก็บสถิติไม่ได้ เกมยังเล่นได้ตามปกติ';
+        }
+
+        // ลงทะเบียนผู้รับเหตุการณ์
+        function on(name, handler) {
+          (handlers[name] || (handlers[name] = [])).push(handler);
+        }
+
+        // ส่งเหตุการณ์ให้ผู้รับและแยกข้อผิดพลาดของส่วนเสริม
+        function emit(name, detail) {
+          (handlers[name] || []).forEach(function (fn) {
+            try {
+              fn(detail);
+            } catch (e) {
+              var msg = String(e);
+              errors.push(msg);
+              console.warn(msg);
+              showCheck();
+            }
+          });
+        }
+
+        // เตรียมเครื่องเสียงหลังผู้เล่นโต้ตอบ
+        function initAudio() {
+          if (audio) {
+            if (audio.resume) audio.resume().catch(function () {});
+            return;
+          }
+          try {
+            var AC = window.AudioContext || window.webkitAudioContext;
+            if (!AC) return;
+            audio = new AC();
+            master = audio.createGain();
+            master.gain.value = CONFIG.masterGain;
+            master.connect(audio.destination);
+            if (audio.resume) audio.resume().catch(function () {});
+          } catch (e) {
+            audio = null;
+          }
+        }
+
+        // เล่นเสียงตามความถี่และเวลาที่กำหนด
+        function playTone(hz, durSec, whenSec) {
+          if (!audio || !master) return;
+          try {
+            var t = audio.currentTime + (whenSec || 0),
+              osc = audio.createOscillator(),
+              gain = audio.createGain();
+            osc.frequency.value = hz;
+            gain.gain.setValueAtTime(0, t);
+            gain.gain.linearRampToValueAtTime(volume / 100, t + CONFIG.audioRampSec);
+            gain.gain.setValueAtTime(
+              volume / 100,
+              t + Math.max(CONFIG.audioRampSec, durSec - CONFIG.audioRampSec)
+            );
+            gain.gain.linearRampToValueAtTime(0, t + durSec);
+            osc.connect(gain);
+            gain.connect(master);
+            osc.start(t);
+            osc.stop(t + durSec + CONFIG.audioRampSec);
+          } catch (e) {}
+        }
+
+        // บันทึกระดับ รูปแบบชื่อโน้ต และระดับเสียง
+        function saveSettings() {
+          write('note-pairs-settings-v1', {
+            level: levelId,
+            names: nameStyle,
+            volume: volume,
+            theme: theme,
+            reduced: reduced
+          });
+        }
+
+        // คืนข้อมูลระดับที่เลือก
+        function currentLevel() {
+          return (
+            LEVELS.find(function (l) {
+              return l.id === levelId;
+            }) || LEVELS[0]
+          );
+        }
+
+        // ข้ามคู่ที่ใช้รหัสซ้ำหรืออ้างถึงโน้ตที่ไม่มี
+        function validPairs(deck) {
+          var keys = [];
+          return deck.pairs.filter(function (p) {
+            if (keys.indexOf(p.key) >= 0) return false;
+            keys.push(p.key);
+            return [p.a, p.b].every(Core.validFace);
+          });
+        }
+
+        // เริ่มรอบใหม่พร้อมคะแนน เวลา และตัวเลือกที่เลือกไว้
+        function newGame() {
+          if (modeId === 'ear') {
+            if (!Core.canListen(currentDeck())) return;
+            initAudio();
+            if (!audio || volume === 0) {
+              byId('earNotice').textContent = 'เปิดเสียงเพื่อเล่นโหมดฟังเสียง';
+              return;
+            }
+          }
+          if (state) stopClock();
+          clearTimeout(timer);
+          elapsedGameMs = 0;
+          lastSecond = null;
+          lastSound = null;
+          byId('earNotice').textContent = '';
+          confirmAction = '';
+          state = Object.assign({
+            score: 0, streak: 0, bestStreak: 0, multiplier: 1,
+            turns: 0, matches: 0, misses: 0, confusions: [],
+            mode: modeId, secondsLeft: CONFIG.raceStartSec
+          }, dealCards());
+          byId('fact').textContent = '';
+          byId('replay').hidden = modeId !== 'ear';
+          byId('replay').disabled = true;
+          byId('pauseRace').hidden = modeId !== 'race';
+          byId('raceClock').hidden = modeId !== 'race';
+          byId('playScore').textContent = '0';
+          byId('streak').textContent = '';
+          if (!storageOK) notice();
+          showScreen('play');
+          render();
+          renderClock();
+          startClock();
+          if (state.mode === 'classic' && state.level === 'easy' && CONFIG.peekMs > 0) {
+            byId('fact').textContent = 'จำตำแหน่งการ์ดไว้';
+            revealAll(CONFIG.peekMs);
+          }
+          emit('gameStart', {deckId: state.deckId, level: state.level, pairs: state.pairs, cols: state.cols});
+        }
+
+        // วาดโน้ตบนบรรทัดห้าเส้น
+        function drawStaff(name, clef) {
+          var note = Core.findNote({ note: name, clef: clef }),
+            ns = 'http://www.w3.org/2000/svg',
+            svg = document.createElementNS(ns, 'svg');
+          svg.setAttribute('viewBox', '0 0 100 100');
+          svg.setAttribute('class', 'staff');
+          if (!note) return svg;
+
+          // เพิ่มองค์ประกอบลงในภาพ SVG
+          function el(tag, attrs) {
+            var e = document.createElementNS(ns, tag);
+            Object.keys(attrs).forEach(function (k) {
+              e.setAttribute(k, attrs[k]);
+            });
+            svg.appendChild(e);
+            return e;
+          }
+          for (var i = 0; i < 5; i++)
+            el('line', {
+              x1: 5,
+              y1: 30 + i * CONFIG.staffGapPx,
+              x2: 95,
+              y2: 30 + i * CONFIG.staffGapPx,
+              stroke: 'currentColor',
+              'stroke-width': 1
+            });
+          el('path', {
+            d: clef === 'bass'
+              ? 'M 12 40 C 10 28 33 23 37 38 C 42 58 20 69 13 73 C 28 61 30 53 28 42'
+              : 'M 24 76 C 11 72 13 55 24 48 C 37 40 36 61 26 61 C 18 61 18 51 25 49 C 39 34 35 21 29 17 ' +
+              'C 23 28 25 41 29 55 L 33 78 C 35 88 25 90 22 85',
+            fill: 'none',
+            stroke: 'currentColor',
+            'stroke-width': 2
+          });
+          if (clef === 'bass') {
+            el('circle', {cx: 43, cy: 35, r: 2, fill: 'currentColor'});
+            el('circle', {cx: 43, cy: 45, r: 2, fill: 'currentColor'});
+          }
+          var y = Core.stepY(note.step, 70, CONFIG.staffGapPx);
+          Core.ledgerSteps(note.step).forEach(function (step) {
+            var ly = Core.stepY(step, 70, CONFIG.staffGapPx);
+            el('line', {
+              x1: 56,
+              y1: ly,
+              x2: 80,
+              y2: ly,
+              stroke: 'currentColor',
+              'stroke-width': 1.5
+            });
+          });
+          el('ellipse', {
+            cx: 68,
+            cy: y,
+            rx: 8,
+            ry: 5,
+            transform: 'rotate(-18 68 ' + y + ')',
+            fill: 'currentColor'
+          });
+          el(
+            'line',
+            note.step < 4
+              ? {
+                  x1: 75,
+                  y1: y,
+                  x2: 75,
+                  y2: y - 25,
+                  stroke: 'currentColor',
+                  'stroke-width': 1.5
+                }
+              : {
+                  x1: 61,
+                  y1: y,
+                  x2: 61,
+                  y2: y + 25,
+                  stroke: 'currentColor',
+                  'stroke-width': 1.5
+                }
+          );
+          return svg;
+        }
+
+        // แสดงการ์ดและผลการเล่นล่าสุด
+        function render(animateId) {
+          var grid = document.getElementById('grid');
+          grid.style.setProperty('--cols', state.cols);
+          grid.textContent = '';
+          document.getElementById('turns').textContent = state.turns;
+          document.getElementById('found').textContent = state.found + ' จาก ' + state.pairs;
+          state.cards.forEach(function (card, index) {
+            var b = document.createElement('button');
+            b.className =
+              'card' +
+              (card.state !== 'down' ? ' is-up' : '') +
+              (card.id === animateId ? ' is-animating' : '') +
+              (card.state === 'matched' ? ' is-matched' : '') +
+              (state.locked && state.pending.indexOf(card.id) >= 0 ? ' is-miss' : '');
+            b.dataset.id = card.id;
+            if (card.state === 'down') {
+              b.setAttribute('aria-label', 'การ์ดคว่ำ ใบที่ ' + (index + 1));
+              var back = document.createElement('span');
+              back.className = 'card-back';
+              back.innerHTML =
+                '<svg viewBox="0 0 80 60" aria-hidden="true">' +
+                '<path d="M5 10H75 M5 20H75 M5 30H75 M5 40H75 M5 50H75" stroke="var(--back-line)" fill="none"/>' +
+                '<path d="M66 9V51 M70 9V51" stroke="var(--back-accent)" stroke-width="2"/></svg>';
+              b.appendChild(back);
+            } else if (card.face.kind === 'staff') {
+              b.setAttribute('aria-label', 'โน้ต ' + card.face.note + ' บนบรรทัดห้าเส้น');
+              b.appendChild(drawStaff(card.face.note, card.face.clef));
+            } else if (card.face.kind === 'sound') {
+              b.append(drawSpeaker(), 'ฟัง');
+            } else if (card.face.kind === 'symbol') {
+              b.appendChild(drawSymbol(card.face.symbol));
+              b.setAttribute('aria-label', 'สัญลักษณ์ดนตรี');
+            } else {
+              var label =
+                nameStyle === 'solfege' && card.face.text.length === 1
+                  ? card.face.sub || card.face.text : card.face.text;
+              b.setAttribute(
+                'aria-label',
+                label + (card.face.register ? ' ' + card.face.register : '')
+              );
+              var text = document.createElement('span');
+              text.className = label.length > 3 ? 'face-text is-long' : 'face-text';
+              text.textContent = label;
+              b.appendChild(text);
+              if (card.face.register) {
+                var reg = document.createElement('span');
+                reg.className = 'register';
+                reg.textContent = card.face.register;
+                b.appendChild(reg);
+              }
+            }
+            if (
+              card.state === 'matched' ||
+              (state.locked && state.pending.indexOf(card.id) >= 0)
+            ) {
+              var mark = document.createElement('span');
+              mark.className = 'mark';
+              mark.textContent = card.state === 'matched' ? 'คู่' : '×';
+              b.appendChild(mark);
+            }
+            b.addEventListener('click', function () {
+              flip(card.id);
+            });
+            b.addEventListener('keydown', function (e) {
+              var delta = {
+                ArrowLeft: -1,
+                ArrowRight: 1,
+                ArrowUp: -state.cols,
+                ArrowDown: state.cols
+              }[e.key];
+              if (delta) {
+                e.preventDefault();
+                var buttons = grid.querySelectorAll('button');
+                var next = index + delta;
+                if (next >= 0 && next < buttons.length) buttons[next].focus();
+              }
+            });
+            grid.appendChild(b);
+          });
+        }
+
+        // จัดการการเปิดการ์ดและส่งเหตุการณ์ตามผล
+        function flip(id) {
+          if (activeScreen !== 'play') return;
+          initAudio();
+          syncClock(performance.now());
+          if (state.mode === 'race' && state.secondsLeft <= 0) {
+            endRound(false);
+            return;
+          }
+          var before = state,
+            card = state.cards.find(function (c) {
+              return c.id === id;
+            });
+          state = Core.flip(state, id);
+          if (before === state) return;
+          if (card.face.kind === 'staff' || card.face.kind === 'sound') {
+            var n = Core.findNote(card.face);
+            if (n) playTone(Core.midiToHz(n.midi), CONFIG.noteToneSec, 0);
+            if (n && card.face.kind === 'sound') {
+              lastSound = n.midi;
+              byId('replay').disabled = false;
+            }
+          }
+          emit('cardFlip', { cardId: id, key: card.key, kind: card.face.kind });
+          if (state.found > before.found) {
+            state = Core.scoreMatch(state);
+            showScore(before);
+            renderClock();
+            explainMatch(card.key);
+            document.getElementById('live').textContent = 'จับคู่ได้';
+            emit('pairMatched', {
+              key: card.key,
+              found: state.found,
+              pairs: state.pairs,
+              turns: state.turns
+            });
+            playTone(523.25, CONFIG.matchToneSec, 0);
+            playTone(659.25, CONFIG.matchToneSec, CONFIG.matchToneSec);
+            if (Core.isWon(state)) {
+              if (state.mode === 'race') {
+                state = Object.assign({}, state, dealCards());
+                emit('gameStart', {deckId: state.deckId, level: state.level, pairs: state.pairs, cols: state.cols});
+              } else {
+                render(id);
+                win();
+                return;
+              }
+            }
+          } else if (state.locked) {
+            document.getElementById('live').textContent = 'ยังไม่ใช่คู่กัน';
+            var keys = state.pending.map(function (cardId) {
+              return state.cards.find(function (item) { return item.id === cardId; }).key;
+            });
+            state = Core.scoreMiss(state, keys);
+            showScore(before);
+            playTone(196, 0.16, 0);
+            emit('pairMissed', {keys: keys, turns: state.turns});
+            timer = setTimeout(function () {
+              state = Core.resolve(state);
+              render();
+            }, CONFIG.flipBackMs);
+          }
+          render(id);
+          var focused = document.querySelector('[data-id="' + id + '"]');
+          if (focused) focused.focus();
+        }
+
+        // บันทึกสถิติและแสดงผลเมื่อจับคู่ครบ
+        function win() {
+          var key = state.deckId + ':' + state.level,
+            old = best[key],
+            isNew = !old || state.turns < old;
+          if (isNew) {
+            best[key] = state.turns;
+            write('note-pairs-best-v1', best);
+          }
+          var stars = Core.stars(state.turns, state.pairs);
+          emit('gameWon', {
+            deckId: state.deckId,
+            level: state.level,
+            turns: state.turns,
+            pairs: state.pairs,
+            stars: stars,
+            best: best[key],
+            isNewBest: isNew
+          });
+          endRound(true);
+        }
+
+        // แสดงปุ่มระดับและตัวเลือกชื่อโน้ตด้วยตัวช่วยเดียวกัน
+        function renderOptions() {
+          optionButtons('levels', LEVELS, levelId, function (value) {
+            levelId = value;
+            saveSettings();
+            renderHome();
+            byId('levels').querySelector('[aria-pressed="true"]').focus();
+          });
+          var styles = [{id: 'letters', label: 'C D E'}, {id: 'solfege', label: 'โด เร มี'}];
+          optionButtons('names', styles, nameStyle, function (value) {
+            nameStyle = value;
+            saveSettings();
+            renderOptions();
+            if (activeScreen === 'play') render();
+            byId('names').querySelector('[aria-pressed="true"]').focus();
+          });
+        }
+
+        // เติมปุ่มตัวเลือกและเรียกใช้ตัวจัดการเมื่อเลือกค่าหนึ่ง
+        function optionButtons(id, options, current, onSelect) {
+          var container = byId(id);
+          container.textContent = '';
+          options.forEach(function (option) {
+            var button = document.createElement('button');
+            button.setAttribute('aria-pressed', String(option.id === current));
+            button.textContent = option.label;
+            button.onclick = function () { onSelect(option.id); };
+            container.appendChild(button);
+          });
+        }
+
+        // แสดงผลตรวจระบบและข้อผิดพลาดของส่วนเสริม
+        function showCheck() {
+          var r = runSelfCheck(),
+            box = document.getElementById('checkResult');
+          box.hidden = false;
+          box.textContent = '';
+          var h = document.createElement('p');
+          h.className = r.failed ? 'is-fail' : 'is-pass';
+          h.textContent = r.failed
+            ? '× ไม่ผ่าน ' + r.failed + ' ข้อ'
+            : '✓ ผ่าน ' + r.passed + ' จาก ' + r.results.length + ' ข้อ';
+          box.appendChild(h);
+          var ul = document.createElement('ul');
+          r.results.forEach(function (item) {
+            var li = document.createElement('li');
+            li.textContent =
+              (item.ok ? 'ผ่าน ' : 'ไม่ผ่าน ') +
+              item.name +
+              (item.detail ? ' ' + item.detail : '');
+            ul.appendChild(li);
+          });
+          box.appendChild(ul);
+          var info = document.createElement('p');
+          info.textContent =
+            'สำรับ ' +
+            DECKS.length +
+            ' · ระดับ ' +
+            LEVELS.length +
+            ' · โน้ต ' +
+            NOTES.length + BASS_NOTES.length +
+            ' · ' +
+            (storageOK ? 'บันทึกได้' : 'บันทึกไม่ได้');
+          box.appendChild(info);
+          info.append(' · โหมด ' + MODES.length + ' · เหรียญ ' + BADGES.length
+            + ' · หน้า ' + document.querySelectorAll('[data-screen]').length);
+          errors.forEach(function (error) {
+            var p = document.createElement('p');
+            p.textContent = 'ส่วนเสริม: ' + error;
+            box.appendChild(p);
+          });
+        }
+
+        // เปิดการ์ดชั่วคราวแล้วคืนสถานะเดิม
+        function revealAll(ms) {
+          if (!state || state.locked || Core.isWon(state)) return;
+          var hidden = state.cards
+            .filter(function (c) {
+              return c.state === 'down';
+            })
+            .map(function (c) {
+              return c.id;
+            });
+          state = Object.assign({}, state, {
+            locked: true,
+            cards: state.cards.map(function (c) {
+              return hidden.indexOf(c.id) >= 0 ? Object.assign({}, c, { state: 'up' }) : c;
+            })
+          });
+          render();
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            state = Object.assign({}, state, {
+              locked: false,
+              cards: state.cards.map(function (c) {
+                return hidden.indexOf(c.id) >= 0 ? Object.assign({}, c, { state: 'down' }) : c;
+              })
+            });
+            render();
+          }, ms);
+        }
+        window.Game = {
+          on: on,
+          getState: function () {
+            return state ? JSON.parse(JSON.stringify(state)) : null;
+          },
+          getStats: function () { return JSON.parse(JSON.stringify(stats)); },
+          hintPair: hintPair,
+          addTime: addTime,
+          showToast: showToast,
+          Core: Core,
+          CONFIG: CONFIG,
+          DATA: { DECKS: DECKS, LEVELS: LEVELS, NOTES: NOTES,
+            BASS_NOTES: BASS_NOTES, MODES: MODES, BADGES: BADGES },
+          runSelfCheck: runSelfCheck,
+          playTone: playTone,
+          newGame: newGame,
+          revealAll: revealAll,
+          setDeck: function (id) {
+            if (
+              DECKS.some(function (d) {
+                return d.id === id;
+              })
+            ) {
+              deckId = id;
+              newGame();
+            }
+          },
+          drawStaff: drawStaff
+        };
+        document.getElementById('newGame').onclick = function () {
+          var b = this;
+          if (confirmAction === 'new' && performance.now() < confirmUntil) {
+            confirmAction = '';
+            b.textContent = 'เกมใหม่';
+            newGame();
+          } else {
+            confirmAction = 'new';
+            confirmUntil = performance.now() + CONFIG.confirmMs;
+            b.textContent = 'กดอีกครั้งเพื่อเริ่มเกมใหม่';
+            setTimeout(function () {
+              b.textContent = 'เกมใหม่';
+            }, CONFIG.confirmMs);
+          }
+        };
+        document.getElementById('volume').value = volume;
+        document.getElementById('volume').oninput = function () {
+          volume = Number(this.value);
+          saveSettings();
+        };
+        document.getElementById('testSound').onclick = function () {
+          initAudio();
+          playTone(440, CONFIG.noteToneSec, 0);
+        };
+        document.getElementById('check').onclick = showCheck;
+        // ปรับสถานะช่วงสลับแท็บ โดยใช้เวลาเฉพาะเมื่อหน้าเว็บมองเห็นได้
+        document.addEventListener('visibilitychange', function () {
+          if (activeScreen !== 'play') return;
+          if (document.hidden) {
+            stopClock();
+          } else {
+            if (state.locked && state.pending.length) {
+              clearTimeout(timer);
+              state = Core.resolve(state);
+              render();
+            }
+            startClock();
+          }
+        });
+        byId('startPlay').onclick = newGame;
+        byId('again').onclick = newGame;
+        byId('changeMode').onclick = returnHome;
+        byId('openHowto').onclick = function () { showScreen('howto'); };
+        byId('closeHowto').onclick = function () {
+          stats.seenHowto = true;
+          write(STATS_KEY, stats);
+          returnHome();
+        };
+        byId('openBadges').onclick = function () { showScreen('badges'); };
+        byId('closeBadges').onclick = returnHome;
+        byId('pauseRace').onclick = function () {
+          stopClock();
+          showScreen('paused');
+        };
+        byId('resumeRace').onclick = function () {
+          showScreen('play');
+          startClock();
+        };
+        byId('replay').onclick = function () {
+          initAudio();
+          if (lastSound !== null) playTone(Core.midiToHz(lastSound), CONFIG.noteToneSec, 0);
+        };
+        byId('quit').onclick = function () {
+          if (confirmAction === 'quit' && performance.now() < confirmUntil) {
+            byId('quit').textContent = 'ออก';
+            returnHome();
+          } else {
+            confirmAction = 'quit';
+            confirmUntil = performance.now() + CONFIG.confirmMs;
+            byId('quit').textContent = 'กดอีกครั้งเพื่อออก';
+            setTimeout(function () { byId('quit').textContent = 'ออก'; }, CONFIG.confirmMs);
+          }
+        };
+        byId('theme').onchange = function () {
+          theme = this.value;
+          applyOptions();
+          saveSettings();
+        };
+        byId('reduce').onchange = function () {
+          reduced = this.checked;
+          applyOptions();
+          saveSettings();
+        };
+        byId('clearStats').onclick = function () {
+          if (confirmAction === 'clearStats' && performance.now() < confirmUntil) {
+            var keys = [STATS_KEY, 'note-pairs-best-v1', 'note-pairs-settings-v1'];
+            keys.forEach(function (key) {
+              delete memory[key];
+              try { localStorage.removeItem(key); } catch (e) { storageOK = false; }
+            });
+            best = {};
+            stats = null;
+            migrateStats();
+            confirmAction = '';
+            this.textContent = 'ล้างข้อมูลของเกมนี้';
+            renderHome();
+          } else {
+            confirmAction = 'clearStats';
+            confirmUntil = performance.now() + CONFIG.confirmMs;
+            this.textContent = 'กดอีกครั้งเพื่อล้างข้อมูล';
+            setTimeout(function () { byId('clearStats').textContent = 'ล้างข้อมูลของเกมนี้'; }, CONFIG.confirmMs);
+          }
+        };
+        addBuiltInDecks();
+        migrateStats();
+        applyOptions();
+        renderHowto();
+        renderHome();
+        document.documentElement.style.setProperty('--flip-ms', CONFIG.flipMs + 'ms');
+        if (!stats.seenHowto) {
+          showScreen('howto');
+        }
+        if (new URLSearchParams(location.search).get('selfcheck') === '1') {
+          document.querySelector('.settings').open = true;
+          showCheck();
+        }
+        /* ═══════════ โซน E · ส่วนเสริมของนิสิต (เขียนเพิ่มที่นี่) ═══════════ */
+        /* เพิ่มส่วนเสริมที่นี่ */
+        /* Game.on('gameStart', function (detail) {}); */
+      }());
+    </script>
+  </body>
+</html>
